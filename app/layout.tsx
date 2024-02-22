@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { PrimeReactProvider } from 'primereact/api';
 import 'primeicons/primeicons.css';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
         
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <PrimeReactProvider>
+    <PrimeReactProvider >
           <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { ITask } from "../types/types";
 import { deleteTodo, editTodo } from "@/api";
 import { InputText } from "primereact/inputtext";
+import { Button } from 'primereact/button';
 
 interface TaskProps {
   task: ITask;
@@ -34,21 +35,20 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   return (
     <tr key={task.id}>
       <td className='w-full'>{task.text}</td>
-      <td className='flex gap-5'>
-    
-        <i className="pi pi-file-edit"></i>
+      <td className='flex gap-2'>
+        <i className="pi pi-file-edit hover:cursor-pointer"   onClick={() => setOpenModalEdit(true)}></i>
         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className='font-bold text-lg'>Edit task</h3>
-            <div className='modal-action'>
+            <div>
               <InputText value={taskToEdit} onChange={(e) => setTaskToEdit(e.target.value)} />
-              <button type='submit' className='btn'>
+              <Button type='submit' className='btn'>
                 Submit
-              </button>
+              </Button>
             </div>
           </form>
         </Modal>
-        <i className="pi pi-trash"></i>
+        <i className="pi pi-trash hover:cursor-pointer" onClick={() => setOpenModalDeleted(true)}></i>
         <Modal modalOpen={openModalDeleted} setModalOpen={setOpenModalDeleted}>
           <h3 className='flex w-full text-lg'>
             Are you sure, you want to delete this task?

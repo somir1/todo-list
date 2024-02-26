@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TreeTable } from 'primereact/treetable';
 import { Column } from 'primereact/column';
 import { ITask } from "../types/types";
-import { getAllTodos } from '@/api'; // Make sure the path is correct
 import ActionTemplate from './actionTemplate';
 
 interface TodoListProps {
- 
+  tasks: ITask[];
+  onRemoveTask: (taskId: string) => void;
+  onUpdateTask: (updatedTaskContainer: { task: ITask; }) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = () => {
-  const [tasks, setTasks] = useState<ITask[]>([]);
-  const [isLoading, setIsLoading] = useState(true)
+const TodoList: React.FC<TodoListProps> = ({ tasks, onRemoveTask, onUpdateTask  }) => {
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      setIsLoading(true); 
-      const fetchedTasks = await getAllTodos();
-      setTasks(fetchedTasks);
-      setIsLoading(false); 
-    };
-  
-    fetchTasks();
-  }, []);
-
-  const tasksWithStructure = tasks.map(task => ({
+  const tasksWithStructure = (tasks || []).map(task => ({
     key: task.id,
     data: task,
   }));
 
-  const actionBodyTemplate = (rowData: ITask) => {
-    return <ActionTemplate task={rowData} key={rowData.id} />;
+  const actionBodyTemplate = (rowData: { data: ITask }) => {
+    return <ActionTemplate task={{data: rowData.data, key: rowData.data.id}} onRemoveTask={onRemoveTask} onUpdateTask={onUpdateTask} />;
   };
 
   return (

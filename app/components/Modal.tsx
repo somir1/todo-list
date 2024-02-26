@@ -10,7 +10,7 @@ interface ModalProps {
   
   const Modal: React.FC<ModalProps> = ({ modalOpen, setModalOpen, children, isNewTask = false }) => {
     return (
-        <div className="card flex  justify-content-center">
+        <div className="card flex justify-content-center">
             {isNewTask && (
                 <Button label="Add a list" icon="pi pi-plus" iconPos="right" onClick={() => setModalOpen(true)} />
             )}

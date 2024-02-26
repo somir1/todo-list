@@ -2,43 +2,43 @@
 
 import React, { useState, FormEventHandler } from 'react'; 
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
-import { Knob } from 'primereact/knob';
-import { SplitButton } from 'primereact/splitbutton';
 import { useRouter } from 'next/navigation';
 import Modal from './Modal';
 import { addTodo } from '@/api';
 import { InputText } from "primereact/inputtext";
+import { ITask } from '../types/types';
 
 
 const { v4: uuidv4 } = require('uuid');
         
-        
+interface AddTaskProps {
+  tasks: ITask[];
+  setTasks: React.Dispatch<React.SetStateAction<ITask[]>>;
+}
     
 
-const AddTask = () => {
-    const router = useRouter();
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [newTaskValue, setNewTaskValue] = useState<string>("");
+const AddTask: React.FC<AddTaskProps> = ({ tasks, setTasks }) => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [newTaskValue, setNewTaskValue] = useState<string>("");
 
-    const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault();
-        await addTodo({
-          id: uuidv4(),
-          text: newTaskValue,
-        });
-        setNewTaskValue("");
-        setModalOpen(false);
-        router.refresh();
-
-    };
+  const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
+      e.preventDefault();
+      const newTask = {
+        id: uuidv4(),
+        text: newTaskValue,
+      };
+      await addTodo(newTask);
+      setTasks([...tasks, newTask]); 
+      setNewTaskValue("");
+      setModalOpen(false);
+  };
 
     return (
     <div className='flex flex-col justify-center items-center gap-2'>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} isNewTask={true}>
         <form onSubmit={handleSubmitNewTodo}>
           <div className='gap-2'>
-            <input
+            <InputText
               value={newTaskValue}
               onChange={(e) => setNewTaskValue(e.target.value)}
               type='text'

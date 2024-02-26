@@ -13,9 +13,11 @@ interface ActionTemplateProps {
         key: string,
         data: ITask
     };
+    onRemoveTask: (taskId: string) => void;
+    onUpdateTask: (updatedTaskContainer: { task: ITask; }) => void;
 }
 
-const ActionTemplate: React.FC<ActionTemplateProps> = ({ task }) => {
+const ActionTemplate: React.FC<ActionTemplateProps> = ({ task, onRemoveTask, onUpdateTask  }) => {
     const router = useRouter();
     const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
     const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
@@ -23,18 +25,24 @@ const ActionTemplate: React.FC<ActionTemplateProps> = ({ task }) => {
 
     const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        await editTodo({
+        const updatedTask = await editTodo({
             id: task.data.id, 
             text: taskToEdit,
         });
-        setOpenModalEdit(false);
-        router.refresh(); 
+        console.log(updatedTask);
+        if (updatedTask) {
+          onUpdateTask({ task: updatedTask });
+          setOpenModalEdit(false);
+        } else {
+        
+        }
     };
+    
 
     const handleDeleteTask = async () => {
         await deleteTodo(task.data.id); 
         setOpenModalDeleted(false);
-        router.refresh(); 
+        onRemoveTask(task.data.id)
     };
 
     return (

@@ -11,7 +11,7 @@ export const getAllTodos = async (): Promise<ITask[]> => {
 
 export const getAllTasks = async (): Promise<ITask[]> => {
   const res = await fetch('/api/tasks', { cache: 'no-store' });
-  const { tasks } = await res.json(); // Corrected from 'movies' to 'tasks'
+  const { tasks } = await res.json(); 
   return tasks;
 };
 

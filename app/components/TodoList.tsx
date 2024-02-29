@@ -23,7 +23,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onRemoveTask, onUpdateTask  
 
   return (
     <div className="flex justify-center items-center w-full px-8 rounded-md">
-      <TreeTable value={tasksWithStructure} tableStyle={{ minWidth: '70rem' }}>
+      <TreeTable className='flex' value={tasksWithStructure} tableStyle={{ minWidth: '70rem' }}>
         <Column field="id" header="ID" />
         <Column field="text" header="Task" />
         <Column body={actionBodyTemplate} header="Actions" />

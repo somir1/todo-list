@@ -47,7 +47,7 @@ const ActionTemplate: React.FC<ActionTemplateProps> = ({ task, onRemoveTask, onU
 
     return (
         <div className="flex flex-wrap ">
-            <Button type="button" icon="pi pi-pencil" onClick={() => setOpenModalEdit(true)} rounded />
+            <Button id='edit' type="button" icon="pi pi-pencil" onClick={() => setOpenModalEdit(true)} rounded />
             <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
                 <form onSubmit={handleSubmitEditTodo}>
                     <h3 className='font-bold text-lg'>Edit task</h3>
@@ -57,7 +57,7 @@ const ActionTemplate: React.FC<ActionTemplateProps> = ({ task, onRemoveTask, onU
                     </div>
                 </form>
             </Modal>
-            <Button type="button" icon="pi pi-trash" onClick={() => setOpenModalDeleted(true)} className="p-button-rounded p-button-danger" />
+            <Button id='delete' type="button" icon="pi pi-trash" onClick={() => setOpenModalDeleted(true)} className="p-button-rounded p-button-danger" />
             <Modal modalOpen={openModalDeleted} setModalOpen={setOpenModalDeleted}>
                 <h3>Are you sure you want to delete this task?</h3>
                 <div className='modal-action gap-2 flex flex-col'>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import AddTask from "./components/AddTask";
 import TodoList from './components/TodoList';
 import { ITask } from './types/types';
-import { getAllTasks } from '@/api';
+import { getAllTasks, getAllTodos } from '@/api';
 
 
 const Home = () => {  
@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const fetchedTasks = await getAllTasks();
+      const fetchedTasks = await getAllTodos();
       console.log('Fetched Tasks:', fetchedTasks); 
       if (Array.isArray(fetchedTasks)) {
         setTasks(fetchedTasks);

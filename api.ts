@@ -1,7 +1,7 @@
 import { IMovie, ITask } from "./app/types/types";
 
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3001';
 
 export const getAllTodos = async (): Promise<ITask[]> => {
   const res = await fetch(`${baseUrl}/tasks`, { cache: 'no-store' });
@@ -9,14 +9,8 @@ export const getAllTodos = async (): Promise<ITask[]> => {
   return todos;
 }
 
-export const getAllTasks = async (): Promise<ITask[]> => {
-  const res = await fetch('/api/tasks', { cache: 'no-store' });
-  const { tasks } = await res.json(); 
-  return tasks;
-};
-
 export const addTodo = async (todo: ITask): Promise<ITask> => {
-  const res = await fetch('/api/tasks', {
+  const res = await fetch(`${baseUrl}/tasks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -28,7 +22,7 @@ export const addTodo = async (todo: ITask): Promise<ITask> => {
 }
 
 export const editTodo = async (todo: ITask): Promise<ITask> => {
-  const res = await fetch(`/api/tasks/${todo.id}`, {
+  const res = await fetch(`${baseUrl}/tasks/${todo.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -40,7 +34,7 @@ export const editTodo = async (todo: ITask): Promise<ITask> => {
 }
 
 export const deleteTodo = async (id: string): Promise<void> => {
-  const response = await fetch(`/api/tasks/${id}`, {
+  const response = await fetch(`${baseUrl}/tasks/${id}`, {
     method: 'DELETE',
   });
 

@@ -6,7 +6,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { PrimeReactProvider } from "primereact/api";
 import '../mocks/server';
-import MirageServer from "../mocks/server";
+
 
         
 export const metadata: Metadata = {
@@ -18,7 +18,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="relative">
-      <MirageServer/>
       <PrimeReactProvider>
         {children}
       </PrimeReactProvider>
